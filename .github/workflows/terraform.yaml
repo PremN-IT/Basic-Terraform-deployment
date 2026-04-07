@@ -1,0 +1,25 @@
+name: terraform deployment
+on: push
+jobs:
+  deploy:
+    env:
+      AWS_ACCESS_KEY_ID:
+      AWS_SECRET_ACCESS_KEY_ID:
+      AWS_SESSION_TOKEN:
+    runs-on: ubuntu-latest
+    steps:
+      - name: code checkout
+        uses: actions/checkout@v4
+      - name: setup terraform binary
+        uses: hashicorp/setup-terraform@v3
+        with:
+          version: 6.39.0
+      - name: Terraform Init, Plan
+        run: |
+          Terraform Init
+          Terraform Plan
+      - name: Terraform apply
+        run: Terraform apply -auto-approve
+
+        
+  
