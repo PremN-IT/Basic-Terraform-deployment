@@ -1,7 +1,7 @@
 variable "region" {
-  default = us-east-1
+  default = "us-east-1"
 }
 variable "cidr" {
-default = 10.0.0.0/24
+default = "10.0.0.0/24"
 }
 
