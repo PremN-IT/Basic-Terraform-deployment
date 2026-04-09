@@ -13,10 +13,14 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.6.3
-      - name: Terraform init, plan
-        run: |
-          terraform init
-          terraform plan
+      - name: Terraform init
+        run: terraform init
+      - name: Terraform format
+        run: terraform fmt
+      - name: Terraform validate
+        run: terraform validate
+      - name: Terraform plan
+        run: terraform plan
       - name: Terraform apply
         run: terraform apply -auto-approve
 
