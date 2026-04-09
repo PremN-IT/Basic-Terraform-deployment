@@ -3,13 +3,15 @@ on: push
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    env:
-      AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
-      AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY_ID}}"
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - name: code checkout
         uses: actions/checkout@v4
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: AKIAZQDWCPKJA4ZWF57W
+          aws-secret-access-key: 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
+          aws-region: us-east-1
       - name: setup terraform binary
         uses: hashicorp/setup-terraform@v3
         with:
