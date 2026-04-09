@@ -6,12 +6,6 @@ jobs:
     steps:
       - name: code checkout
         uses: actions/checkout@v4
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: AKIAZQDWCPKJA4ZWF57W
-          aws-secret-access-key: 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
-          aws-region: us-east-1
       - name: setup terraform binary
         uses: hashicorp/setup-terraform@v3
         with:
