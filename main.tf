@@ -1,5 +1,12 @@
 provider "aws" {
 region = var.region
+  default_tags {
+    tags = {
+      ManagedBy = "Terraform"
+    }
+  }
+}
+
 }
 resource "aws_vpc" "main" {
   cidr_block       = var.cidr
