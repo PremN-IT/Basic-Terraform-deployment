@@ -20,9 +20,9 @@ jobs:
       - name: Terraform validate
         run: terraform validate
       - name: Terraform plan
-        run: terraform plan
-      - name: Terraform apply
-        run: terraform apply -auto-approve
+        run: terraform plan -out=plan
+      - name: Terraform apply plan
+        run: terraform apply
 
         
   
