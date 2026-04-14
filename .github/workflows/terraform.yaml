@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: code checkout
         uses: actions/checkout@v4
-      - name: setup terraform binary
+      - name: setup terraform binaries
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.6.3
