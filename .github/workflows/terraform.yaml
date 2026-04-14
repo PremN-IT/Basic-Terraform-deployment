@@ -1,11 +1,5 @@
 name: terraform deployment
-on: 
-  workflow_dispatch:
-    inputs:
-    custom_message:
-      description: ""
-      required: true
-      type: string
+on: workflow_dispatch
 jobs:
   deploy:
     env:
