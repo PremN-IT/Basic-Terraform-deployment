@@ -17,7 +17,7 @@ jobs:
       - name: Terraform init
         run: terraform init
   validate:
-    runs-on: self-hosted
+    runs-on: Github-hosted
     steps:
       - name: code checkout
         uses: actions/checkout@v4
@@ -25,12 +25,29 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.6.3
+      - name: 'Install TFLint'
+          run: |
+            curl -sLo tflint.zip https://github.com/terraform-linters/tflint/releases/download/v${{ env.TFLINT_VERSION }}/tflint_linux_amd64.zip
+            unzip tflint.zip -d /usr/local/bin/
+            tflint --version
+      - name: 'Install tfsec'
+        run: |
+          curl -sLo tfsec https://github.com/aquasecurity/tfsec/releases/download/v${{ env.TFSEC_VERSION }}/tfsec-linux-amd64
+          ch mod +x tfsec
+          mv tfsec /usr/local/bin/
+          tfsec --version    
       - name: Terraform format
         run: terraform fmt
       - name: Terraform validate
         run: terraform validate
+      - name: 'TFLint'
+        run: |
+          tflint --init
+          tflint
+      - name: 'tfsec'
+        run: tfsec .
   plan:
-   runs-on: self-hosted
+   runs-on: github-hosted
    needs: validate
    steps:
      - name: code checkout
@@ -42,7 +59,7 @@ jobs:
      - name: Terraform plan
        run: terraform plan -out=plan
   apply:
-    runs-on: self-hosted
+    runs-on: github-hosted
     steps:
      - name: code checkout
        uses: actions/checkout@v4
