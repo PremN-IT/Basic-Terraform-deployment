@@ -7,10 +7,15 @@ jobs:
     steps:
       - name: code checkout
         uses: actions/checkout@v4
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::653082655378:role/Github-actions-role
+          aws-region: us-west-2 
       - name: setup terraform binaries
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: 1.6.3
+          terraform_version: 1.7.5
       - name: Terraform init
         run: terraform init
   validate:
@@ -26,7 +31,7 @@ jobs:
       - name: setup terraform binaries
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: 1.6.3
+          terraform_version: 1.7.5
       - name: 'Install TFLint'
           run: |
             curl -sLo tflint.zip https://github.com/terraform-linters/tflint/releases/download/v${{ env.TFLINT_VERSION }}/tflint_linux_amd64.zip
@@ -62,7 +67,7 @@ jobs:
      - name: setup terraform binaries
        uses: hashicorp/setup-terraform@v3
        with:
-          terraform_version: 1.6.3
+          terraform_version: 1.7.5
      - name: Terraform plan
        run: terraform plan -out=plan
   apply:
@@ -78,7 +83,7 @@ jobs:
      - name: setup terraform binaries
        uses: hashicorp/setup-terraform@v3
        with:
-          terraform_version: 1.6.3
+          terraform_version: 1.7.5
      - name: Terraform apply plan
        run: terraform apply plan
     
